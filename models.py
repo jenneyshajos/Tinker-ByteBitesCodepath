@@ -1,13 +1,12 @@
 """
-
 Customer stores a name and a purchase history of Transactions, and
 is_real_user() returns True once the customer has made at least one purchase.
 Item represents a single food product, with a name, price, category and
 popularity rating. Menu holds the full collection of Items and lets you add
-items, browse all of them, or filter them by category. Transaction groups one
-or more selected Items into a single purchase and computes the total cost.
-A Customer makes transactions, while Menu and Transaction each hold Items,
-which exist independently of both.
+items, browse all of them, filter them by category, or sort them by price or
+popularity. Transaction groups one or more selected Items into a single
+purchase and computes the total cost. A Customer makes transactions, while 
+Menu and Transaction each hold Items, which exist independently of both.
 """
 
 class Item:
@@ -49,7 +48,19 @@ class Menu:
         return list(self._items)
 
     def filter_by_category(self, category: str) -> list[Item]:
+        """Return the menu items whose category exactly matches the given one,
+        or an empty list if none do."""
         return [item for item in self._items if item.category == category]
+
+    def sort_by_price(self, descending: bool = False) -> list[Item]:
+        """Return a new list of menu items ordered by price, cheapest first
+        unless descending is True."""
+        return sorted(self._items, key=lambda item: item.price, reverse=descending)
+
+    def sort_by_popularity(self, descending: bool = True) -> list[Item]:
+        """Return a new list of menu items ordered by popularity rating,
+        highest first unless descending is False."""
+        return sorted(self._items, key=lambda item: item.popularity_rating, reverse=descending)
 
 
 class Transaction:
@@ -64,6 +75,8 @@ class Transaction:
         self._items.append(item)
 
     def compute_total(self) -> float:
+        """Return the sum of the prices of all items in the transaction,
+        counting repeated items each time."""
         return sum(item.price for item in self._items)
 
 
