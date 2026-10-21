@@ -5,7 +5,7 @@ Item represents a single food product, with a name, price, category and
 popularity rating. Menu holds the full collection of Items and lets you add
 items, browse all of them, filter them by category, or sort them by price or
 popularity. Transaction groups one or more selected Items into a single
-purchase and computes the total cost. A Customer makes transactions, while 
+purchase and computes the total cost. A Customer makes transactions, while
 Menu and Transaction each hold Items, which exist independently of both.
 """
 
@@ -48,9 +48,10 @@ class Menu:
         return list(self._items)
 
     def filter_by_category(self, category: str) -> list[Item]:
-        """Return the menu items whose category exactly matches the given one,
-        or an empty list if none do."""
-        return [item for item in self._items if item.category == category]
+        """Return the menu items whose category matches the given one, ignoring
+        case, or an empty list if none do."""
+        return [item for item in self._items
+                if item.category.casefold() == category.casefold()]
 
     def sort_by_price(self, descending: bool = False) -> list[Item]:
         """Return a new list of menu items ordered by price, cheapest first

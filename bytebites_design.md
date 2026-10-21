@@ -11,10 +11,10 @@ classDiagram
     }
 
     class Item {
-        -name: str
-        -price: float
-        -category: str
-        -popularity_rating: float
+        +name: str
+        +price: float
+        +category: str
+        +popularity_rating: float
     }
 
     class Menu {
@@ -22,6 +22,8 @@ classDiagram
         +add_item(item: Item) void
         +get_all_items() list~Item~
         +filter_by_category(category: str) list~Item~
+        +sort_by_price(descending: bool) list~Item~
+        +sort_by_popularity(descending: bool) list~Item~
     }
 
     class Transaction {
